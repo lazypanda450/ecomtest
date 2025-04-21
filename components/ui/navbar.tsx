@@ -108,7 +108,7 @@ export function Navbar({
     productsMenu,
     { title: "Token", url: "#tokeninfo" },
     { title: "Roadmap", url: "#roadmap" },
-    { title: "Audit", url: "https://coinsult.net/projects/bhovardhan-community-traders/" },
+    { title: "Audit", url: "#" },
   ];
 
   // Helper function to render menu items in mobile view
@@ -169,7 +169,9 @@ export function Navbar({
               {logo.title}
             </a>
           </div>
-          <div className="flex items-center gap-1">
+          
+          {/* Center the navigation menu */}
+          <div className="flex-1 flex items-center justify-center">
             <NavigationMenu>
               <NavigationMenuList>
                 {updatedMenu.map((menuItem) => {
@@ -220,6 +222,10 @@ export function Navbar({
                 })}
               </NavigationMenuList>
             </NavigationMenu>
+          </div>
+          
+          {/* Keep the buttons on the right */}
+          <div className="flex items-center gap-1">
             <SignInButton>
               <Button 
                 variant="outline" 
