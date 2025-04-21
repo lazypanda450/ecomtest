@@ -56,7 +56,7 @@ export function SignInButton({ children }: { children: React.ReactNode }) {
           <div className="relative w-20 h-20">
             <Image 
               src="/assets/heroimg.png" 
-              alt="Qlife Logo" 
+              alt="Logo" 
               fill
               className="object-contain"
             />
@@ -65,7 +65,7 @@ export function SignInButton({ children }: { children: React.ReactNode }) {
         </div>
         
         <DialogHeader>
-          <DialogTitle>Sign in to your Qlife account</DialogTitle>
+          <DialogTitle>Sign in to your account</DialogTitle>
           <DialogDescription>
             Enter your email below to sign in to your account
           </DialogDescription>
