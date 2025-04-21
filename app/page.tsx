@@ -12,7 +12,6 @@ import { TokenInfo } from "@/components/ui/tokeninfo";
 import Image from "next/image";
 import { Roadmap } from "@/components/ui/roadmap";
 import { Products } from "@/components/ui/products";
-import { ForgotPasswordButton } from "@/components/ui/forgot-password";
 
 export default function HomePage() {
   return (
@@ -20,9 +19,8 @@ export default function HomePage() {
       {/* Navigation */}
       <Navbar />
       <div className="absolute top-4 right-4 flex gap-2 z-20">
-        <SignInButton />
-        <SignUpButton />
-        <ForgotPasswordButton />
+        <SignInButton>Login</SignInButton>
+        <SignUpButton>Sign Up</SignUpButton>
       </div>
 
       <main>
@@ -43,12 +41,12 @@ export default function HomePage() {
                 </div>
                 <div className="whitespace-normal md:whitespace-nowrap">
                   <span className="text-white">of </span>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">our&apos;platform.</span>
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">our platform.</span>
                 </div>
               </h1>
               
               <p className="text-base sm:text-lg mt-6 md:mt-8 mb-8 md:mb-10 text-gray-300 max-w-lg">
-               This is a revolutionizing the way we interact with everyday services by offering a seamless, blockchain-backed digital lifestyle platform.
+                We are revolutionizing the way we interact with everyday services by offering a seamless, blockchain-backed digital lifestyle platform.
               </p>
               
               <div className="flex flex-row gap-4 md:gap-5">

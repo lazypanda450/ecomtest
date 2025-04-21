@@ -9,7 +9,6 @@ import {
   DialogDescription,
   DialogTrigger
 } from "./dialog";
-import { Button } from "./button";
 import Image from "next/image";
 import { motion } from "framer-motion";
 
@@ -26,20 +25,6 @@ export function SignInButton({ children }: { children: React.ReactNode }) {
       const signUpButton = document.querySelector('.signup-button-class') as HTMLElement;
       if (signUpButton) {
         signUpButton.click();
-      }
-    }, 100);
-  };
-  
-  // Handle forgot password click
-  const handleForgotPasswordClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    // Close this dialog and open forgot password dialog
-    setOpen(false);
-    // Find and click the forgot password button
-    setTimeout(() => {
-      const forgotPasswordButton = document.querySelector('.forgot-password-button') as HTMLElement;
-      if (forgotPasswordButton) {
-        forgotPasswordButton.click();
       }
     }, 100);
   };
@@ -87,13 +72,6 @@ export function SignInButton({ children }: { children: React.ReactNode }) {
               <label htmlFor="password" className="text-sm font-medium">
                 Password
               </label>
-              <a 
-                href="#" 
-                className="text-sm text-blue-500 hover:underline text-blue-600"
-                onClick={handleForgotPasswordClick}
-              >
-                Forgot password?
-              </a>
             </div>
             <input
               id="password"

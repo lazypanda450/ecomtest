@@ -1,5 +1,5 @@
-import {  Menu, Bitcoin, Bike, ShoppingCart,  } from "lucide-react";
-import React, { ReactElement,  } from 'react';
+import { Menu, Bitcoin, Bike, ShoppingCart } from "lucide-react";
+import React, { ReactElement } from 'react';
 import {
   Accordion,
   AccordionContent,
@@ -26,12 +26,21 @@ import {
 } from "@/components/ui/sheet";
 import Image from "next/image";
 
+// Define proper types for menu items
+interface MenuSubItem {
+  title: string;
+  description: string;
+  icon: ReactElement;
+  url: string;
+  onClick?: (e: React.MouseEvent) => void;
+}
+
 interface MenuItem {
   title: string;
   url: string;
   description?: string;
   icon?: ReactElement;
-  items?: MenuItem[];
+  items?: MenuSubItem[];
   onClick?: (e: React.MouseEvent) => void;
 }
 
@@ -47,10 +56,6 @@ interface NavbarProps {
     name: string;
     url: string;
   }[];
-  _auth?: {
-    login: { text: string; url: string };
-    signup: { text: string; url: string };
-  };
 }
 
 export function Navbar({
@@ -61,7 +66,6 @@ export function Navbar({
     title: "",
   },
   mobileExtraLinks = [],
-  _auth,
 }: NavbarProps) {
   const handleProductClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -71,7 +75,7 @@ export function Navbar({
     }
   };
   
-  const productsMenu = {
+  const productsMenu: MenuItem = {
     title: "Products",
     url: "#products",
     items: [
@@ -89,13 +93,6 @@ export function Navbar({
         url: "#",
         onClick: handleProductClick
       },
-      // {
-      //   title: "mobility",
-      //   description: "Complete EV solutions including 2-wheelers, 3-wheelers, and 4-wheelers with charging infrastructure.",
-      //   icon: <Zap className="size-5 shrink-0" />,
-      //   url: "#",
-      //   onClick: handleProductClick
-      // },
       {
         title: "Exchange",
         description: "Comprehensive crypto platform with both centralized and decentralized exchange options and secure wallets.",
@@ -106,13 +103,50 @@ export function Navbar({
     ],
   };
   
-  const updatedMenu = [
+  const updatedMenu: MenuItem[] = [
     { title: "Home", url: "/" },
     productsMenu,
     { title: "Token", url: "#tokeninfo" },
     { title: "Roadmap", url: "#roadmap" },
     { title: "Audit", url: "https://coinsult.net/projects/bhovardhan-community-traders/" },
   ];
+
+  // Helper function to render menu items in mobile view
+  const renderMenuItem = (item: MenuItem) => {
+    if (item.items && Array.isArray(item.items) && item.items.length > 0) {
+      return (
+        <AccordionItem key={item.title} value={item.title} className="border-b-0">
+          <AccordionTrigger className="py-2 text-base">
+            {item.title}
+          </AccordionTrigger>
+          <AccordionContent>
+            <div className="flex flex-col space-y-2">
+              {item.items.map((subItem) => (
+                <a
+                  key={subItem.title}
+                  href={subItem.url}
+                  onClick={subItem.onClick}
+                  className="py-2 text-base transition-colors hover:text-primary"
+                >
+                  {subItem.title}
+                </a>
+              ))}
+            </div>
+          </AccordionContent>
+        </AccordionItem>
+      );
+    }
+    
+    return (
+      <a
+        key={item.title}
+        href={item.url}
+        className="py-2 text-base transition-colors hover:text-primary"
+      >
+        {item.title}
+      </a>
+    );
+  };
 
   return (
     <section className="py-4 sticky top-0 z-50 bg-black/20 backdrop-blur-xl border-b border-white/10">
@@ -138,16 +172,16 @@ export function Navbar({
           <div className="flex items-center gap-1">
             <NavigationMenu>
               <NavigationMenuList>
-                {updatedMenu.map((item) => {
-                  if (item.items && item.items.length > 0) {
+                {updatedMenu.map((menuItem) => {
+                  if (menuItem.items && Array.isArray(menuItem.items) && menuItem.items.length > 0) {
                     return (
-                      <NavigationMenuItem key={item.title}>
+                      <NavigationMenuItem key={menuItem.title}>
                         <NavigationMenuTrigger className="bg-transparent hover:bg-white/10">
-                          {item.title}
+                          {menuItem.title}
                         </NavigationMenuTrigger>
                         <NavigationMenuContent>
                           <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                            {item.items.map((subItem) => (
+                            {menuItem.items.map((subItem) => (
                               <li key={subItem.title}>
                                 <NavigationMenuLink asChild>
                                   <a
@@ -172,13 +206,13 @@ export function Navbar({
                     );
                   }
                   return (
-                    <NavigationMenuItem key={item.title}>
+                    <NavigationMenuItem key={menuItem.title}>
                       <NavigationMenuLink asChild>
                         <a
-                          href={item.url}
+                          href={menuItem.url}
                           className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium transition-colors hover:bg-white/10 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
                         >
-                          {item.title}
+                          {menuItem.title}
                         </a>
                       </NavigationMenuLink>
                     </NavigationMenuItem>
@@ -186,13 +220,11 @@ export function Navbar({
                 })}
               </NavigationMenuList>
             </NavigationMenu>
-          </div>
-          <div className="flex items-center gap-2">
             <SignInButton>
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="text-white border-white/20 bg-transparent hover:bg-white/10"
+                className="border-white/20 bg-transparent hover:bg-white/10 text-white"
               >
                 Login
               </Button>
@@ -290,40 +322,4 @@ export function Navbar({
       </div>
     </section>
   );
-}
-
-const renderMenuItem = (item: MenuItem) => {
-  if (item.items) {
-    return (
-      <AccordionItem key={item.title} value={item.title} className="border-b-0">
-        <AccordionTrigger className="py-2 text-base">
-          {item.title}
-        </AccordionTrigger>
-        <AccordionContent>
-          <div className="flex flex-col space-y-2">
-            {item.items.map((subItem) => (
-              <a
-                key={subItem.title}
-                href={subItem.url}
-                onClick={subItem.onClick}
-                className="py-2 text-base transition-colors hover:text-primary"
-              >
-                {subItem.title}
-              </a>
-            ))}
-          </div>
-        </AccordionContent>
-      </AccordionItem>
-    );
-  }
-  
-  return (
-    <a
-      key={item.title}
-      href={item.url}
-      className="py-2 text-base transition-colors hover:text-primary"
-    >
-      {item.title}
-    </a>
-  );
-}; 
+} 

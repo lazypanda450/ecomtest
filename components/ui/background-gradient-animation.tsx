@@ -87,7 +87,7 @@ export const BackgroundGradientAnimation = ({
     isMobile
   ]);
 
-  // Fix for the infinite loop issue
+  // Fix the useEffect dependencies
   useEffect(() => {
     let animationFrameId: number;
     
@@ -111,7 +111,7 @@ export const BackgroundGradientAnimation = ({
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [tgX, tgY]); // Remove curX and curY from dependencies
+  }, [tgX, tgY, curX, curY]); // Add curX and curY to dependencies
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     if (interactiveRef.current) {

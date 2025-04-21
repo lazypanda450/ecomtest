@@ -162,3 +162,7 @@ export function SignUpButton({ children }: { children: React.ReactNode }) {
     </>
   );
 }
+
+export function SignUpDialog({ children }: { children: React.ReactNode }) {
+  // Implementation of SignUpDialog
+}

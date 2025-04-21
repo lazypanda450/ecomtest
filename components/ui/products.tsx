@@ -161,13 +161,16 @@ function ProductCard({
           
           {/* Hidden SignInButton to reference */}
           <div className="hidden">
-            <SignInButton />
+            <SignInButton>Login</SignInButton>
           </div>
           
           {/* Animated button */}
           <motion.div 
             onClick={() => {
-              document.querySelector('.signin-button-class')?.click();
+              const signInButton = document.querySelector('.signin-button-class') as HTMLElement;
+              if (signInButton) {
+                signInButton.click();
+              }
             }}
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.97 }}

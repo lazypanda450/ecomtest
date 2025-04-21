@@ -10,8 +10,7 @@ import {
   DialogTrigger
 } from "./dialog";
 import { Button } from "./button";
-import { SignUpDialog } from "./signup-dialog";
-import { ForgotPasswordLink } from "./forgot-password";
+import { SignUpButton } from "./signup-dialog";
 
 // Sign In Dialog Component
 export function SignInDialog() {
@@ -21,7 +20,12 @@ export function SignInDialog() {
   const handleSignUpClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setOpen(false);
-    setTimeout(() => setShowSignUp(true), 100);
+    setTimeout(() => {
+      const signUpButton = document.querySelector('.signup-button-class') as HTMLElement;
+      if (signUpButton) {
+        signUpButton.click();
+      }
+    }, 100);
   };
 
   if (!open && !showSignUp) return null;
@@ -59,7 +63,6 @@ export function SignInDialog() {
                 <label htmlFor="password" className="text-sm font-medium">
                   Password
                 </label>
-                <ForgotPasswordLink />
               </div>
               <input
                 id="password"
@@ -82,7 +85,7 @@ export function SignInDialog() {
           </div>
         </DialogContent>
       </Dialog>
-      {showSignUp && <SignUpDialog />}
+      {showSignUp && <SignUpButton>Sign Up</SignUpButton>}
     </>
   );
 }
@@ -95,7 +98,12 @@ export function SignInButton({ children }: { children: React.ReactNode }) {
   const handleSignUpClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setOpen(false);
-    setTimeout(() => setShowSignUp(true), 100);
+    setTimeout(() => {
+      const signUpButton = document.querySelector('.signup-button-class') as HTMLElement;
+      if (signUpButton) {
+        signUpButton.click();
+      }
+    }, 100);
   };
   
   return (
@@ -134,7 +142,6 @@ export function SignInButton({ children }: { children: React.ReactNode }) {
                 <label htmlFor="password" className="text-sm font-medium">
                   Password
                 </label>
-                <ForgotPasswordLink />
               </div>
               <input
                 id="password"
@@ -157,7 +164,7 @@ export function SignInButton({ children }: { children: React.ReactNode }) {
           </div>
         </DialogContent>
       </Dialog>
-      {showSignUp && <SignUpDialog />}
+      {showSignUp && <SignUpButton>Sign Up</SignUpButton>}
     </>
   );
 }
